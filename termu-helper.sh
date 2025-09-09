@@ -1,30 +1,35 @@
 #!/bin/bash
 
 # ===========================
-# Termux Helper - Multilingual
+# Termux Helper - Multilingual RTL Friendly
+# Developed by Jamal El Hizazi
 # ===========================
 
-# Configuration
 INSTALL_DIR="$HOME/.termu-helper"
 DATA_FILE_EN="$INSTALL_DIR/commands.json"
 DATA_FILE_AR="$INSTALL_DIR/commands.ar.json"
-DEVELOPER="Jamal El Hizazi"
+DEV_NAME="جمال الحزازي"
 
-# Function to check if required tool 'jq' is installed
+# Reverse Arabic text for RTL display
+reverse_text() {
+    local input="$1"
+    echo "$input" | rev
+}
+
+# Check jq
 check_jq() {
     if ! command -v jq &> /dev/null; then
         echo -e "\e[1;31mError: 'jq' is not installed.\e[0m"
         echo "Installing 'jq' now..."
         pkg install -y jq
         if [ $? -ne 0 ]; then
-            echo "Error: Failed to install 'jq'. Please install it manually with:"
-            echo "pkg install jq"
+            echo "Error: Failed to install 'jq'. Install manually: pkg install jq"
             exit 1
         fi
     fi
 }
 
-# Function to choose language
+# Choose language
 choose_language() {
     clear
     echo -e "\e[1;36m┌──────────────────────────────┐"
@@ -41,24 +46,22 @@ choose_language() {
     esac
 }
 
-# Function to display header with developer name
-display_header() {
-    clear
-    echo -e "\e[1;36m┌────────────────────────────────────┐"
-    if [[ "$DATA_FILE" == "$DATA_FILE_AR" ]]; then
-        echo -e "│ \e[1;33mأداة Termux Helper\e[1;36m              │"
-        echo -e "│ \e[1;32mتم التطوير بواسطة: $DEVELOPER\e[1;36m │"
-    else
-        echo -e "│ \e[1;33mTermux Helper - Commands List\e[1;36m │"
-        echo -e "│ \e[1;32mDeveloped by: $DEVELOPER\e[1;36m       │"
-    fi
-    echo -e "└────────────────────────────────────┘\e[0m"
-    echo ""
-}
-
-# Function to display the main menu
+# Display menu
 display_menu() {
-    display_header
+    clear
+    if [[ "$DATA_FILE" == "$DATA_FILE_AR" ]]; then
+        echo -e "\e[1;36m┌────────────────────────────────────┐"
+        echo -e "│ $(reverse_text 'Termux Helper - قائمة الأوامر') │"
+        echo -e "│ $(reverse_text "تم التطوير بواسطة $DEV_NAME") │"
+        echo -e "└────────────────────────────────────┘\e[0m"
+    else
+        echo -e "\e[1;36m┌────────────────────────────────────┐"
+        echo -e "│ \e[1;33mTermux Helper - Commands List\e[1;36m │"
+        echo -e "│ Developed by $DEV_NAME │"
+        echo -e "└────────────────────────────────────┘\e[0m"
+    fi
+    echo ""
+
     local current_category=""
     jq -r '.[] | .category + "!" + (.id | tostring) + ":" + .command' "$DATA_FILE" |
     while IFS="!" read -r category rest; do
@@ -68,24 +71,32 @@ display_menu() {
 
         if [[ "$category" != "$current_category" ]]; then
             echo ""
-            echo -e "\e[1;35m$category\e[0m"
+            if [[ "$DATA_FILE" == "$DATA_FILE_AR" ]]; then
+                echo -e "$(reverse_text "$category")"
+            else
+                echo -e "\e[1;35m$category\e[0m"
+            fi
             current_category="$category"
         fi
 
-        printf "  \e[1;32m%-2s\e[0m: %s\n" "$id" "$command"
+        if [[ "$DATA_FILE" == "$DATA_FILE_AR" ]]; then
+            printf "  \e[1;32m%-2s\e[0m: %s\n" "$id" "$(reverse_text "$command")"
+        else
+            printf "  \e[1;32m%-2s\e[0m: %s\n" "$id" "$command"
+        fi
     done
 
     echo ""
     if [[ "$DATA_FILE" == "$DATA_FILE_AR" ]]; then
         echo -e "\e[1;33m---------------------------------------\e[0m"
-        echo -e "\e[1;33mأدخل رقم الأمر للتفاصيل، أو 'q' للخروج.\e[0m"
+        echo -e "$(reverse_text 'أدخل رقم الأمر للتفاصيل، أو q للخروج.')"
     else
         echo -e "\e[1;33m---------------------------------------\e[0m"
         echo -e "\e[1;33mEnter a command number for details, or 'q' to quit.\e[0m"
     fi
 }
 
-# Function to show command details
+# Show command details
 show_details() {
     local id=$1
     local command_info=$(jq --argjson id "$id" '.[] | select(.id == $id)' "$DATA_FILE")
@@ -95,22 +106,30 @@ show_details() {
         local cmd_desc=$(echo "$command_info" | jq -r '.description')
         local cmd_example=$(echo "$command_info" | jq -r '.example')
 
-        display_header
+        clear
+        echo -e "\e[1;36m┌────────────────────────────────────┐"
         if [[ "$DATA_FILE" == "$DATA_FILE_AR" ]]; then
-            echo -e "\e[1;33mتفاصيل الأمر\e[0m"
+            echo -e "│ $(reverse_text 'تفاصيل الأمر')              │"
+            echo -e "│ $(reverse_text "تم التطوير بواسطة $DEV_NAME") │"
         else
-            echo -e "\e[1;33mCommand Details\e[0m"
+            echo -e "│ \e[1;33mCommand Details\e[1;36m          │"
+            echo -e "│ Developed by $DEV_NAME │"
         fi
-        echo -e "\e[1;32mCommand:\e[0m $cmd_name"
-        echo -e "\e[1;32mDescription:\e[0m $cmd_desc"
-        echo -e "\e[1;32mExample:\e[0m $cmd_example"
+        echo -e "└────────────────────────────────────┘\e[0m"
 
-        echo ""
         if [[ "$DATA_FILE" == "$DATA_FILE_AR" ]]; then
+            echo -e "$(reverse_text "Command:") $(reverse_text "$cmd_name")"
+            echo -e "$(reverse_text "Description:") $(reverse_text "$cmd_desc")"
+            echo -e "$(reverse_text "Example:") $(reverse_text "$cmd_example")"
+            echo ""
             echo -e "\e[1;33m---------------------------------------\e[0m"
-            echo -e "\e[1;33mلنسخ الأمر، قم بتحديد النص أعلاه.\e[0m"
-            echo -e "\e[1;33mاضغط Enter للعودة إلى القائمة الرئيسية.\e[0m"
+            echo -e "$(reverse_text 'لنسخ الأمر، قم بتحديد النص أعلاه.')"
+            echo -e "$(reverse_text 'اضغط Enter للعودة إلى القائمة الرئيسية.')"
         else
+            echo -e "\e[1;32mCommand:\e[0m $cmd_name"
+            echo -e "\e[1;32mDescription:\e[0m $cmd_desc"
+            echo -e "\e[1;32mExample:\e[0m $cmd_example"
+            echo ""
             echo -e "\e[1;33m---------------------------------------\e[0m"
             echo -e "\e[1;33mTo copy the command, select the text above.\e[0m"
             echo -e "\e[1;33mPress Enter to return to the main menu.\e[0m"
@@ -118,7 +137,7 @@ show_details() {
         read -p ""
     else
         if [[ "$DATA_FILE" == "$DATA_FILE_AR" ]]; then
-            echo -e "\e[1;31mخطأ: رقم أمر غير صحيح.\e[0m"
+            echo -e "\e[1;31m$(reverse_text 'خطأ: رقم أمر غير صحيح.')\e[0m"
         else
             echo -e "\e[1;31mError: Invalid command number.\e[0m"
         fi
@@ -140,14 +159,14 @@ while true; do
         show_details "$choice"
     elif [[ "$choice" == "q" || "$choice" == "Q" ]]; then
         if [[ "$DATA_FILE" == "$DATA_FILE_AR" ]]; then
-            echo "شكراً لاستخدام Termux Helper!"
+            echo "$(reverse_text 'شكراً لاستخدام Termux Helper!')"
         else
             echo "Thanks for using Termux Helper!"
         fi
         exit 0
     else
         if [[ "$DATA_FILE" == "$DATA_FILE_AR" ]]; then
-            echo -e "\e[1;31mإدخال غير صالح. الرجاء إدخال رقم أو 'q'.\e[0m"
+            echo -e "\e[1;31m$(reverse_text 'إدخال غير صالح. الرجاء إدخال رقم أو q.')\e[0m"
         else
             echo -e "\e[1;31mInvalid input. Please enter a number or 'q'.\e[0m"
         fi
