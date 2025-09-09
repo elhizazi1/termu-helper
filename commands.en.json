@@ -1,0 +1,163 @@
+[
+  {
+    "id": 1,
+    "category": "Package Management",
+    "command": "pkg install <package_name>",
+    "description": "Used to install a new package. Replace <package_name> with the name of the package you want to install.",
+    "example": "pkg install python"
+  },
+  {
+    "id": 2,
+    "category": "Package Management",
+    "command": "pkg update",
+    "description": "Updates the list of available packages from repositories.",
+    "example": "pkg update"
+  },
+  {
+    "id": 3,
+    "category": "Package Management",
+    "command": "pkg upgrade",
+    "description": "Upgrades all installed packages to their latest versions.",
+    "example": "pkg upgrade"
+  },
+  {
+    "id": 4,
+    "category": "Package Management",
+    "command": "pkg search <keyword>",
+    "description": "Searches for packages that contain a specific keyword.",
+    "example": "pkg search c++"
+  },
+  {
+    "id": 5,
+    "category": "Package Management",
+    "command": "pkg show <package_name>",
+    "description": "Shows detailed information about a specific package.",
+    "example": "pkg show termux-tools"
+  },
+  {
+    "id": 6,
+    "category": "Files & Directories",
+    "command": "ls",
+    "description": "Displays a list of all files and folders in the current path.",
+    "example": "ls -l"
+  },
+  {
+    "id": 7,
+    "category": "Files & Directories",
+    "command": "cd <directory>",
+    "description": "Used to navigate between folders. Replace <directory> with the folder you want to enter.",
+    "example": "cd ~/storage"
+  },
+  {
+    "id": 8,
+    "category": "Files & Directories",
+    "command": "pwd",
+    "description": "Displays the full path of the folder you are currently in.",
+    "example": "pwd"
+  },
+  {
+    "id": 9,
+    "category": "Files & Directories",
+    "command": "mkdir <directory_name>",
+    "description": "Used to create a new folder.",
+    "example": "mkdir my_project"
+  },
+  {
+    "id": 10,
+    "category": "Files & Directories",
+    "command": "rm <file_name>",
+    "description": "Used to delete a file. **Warning:** This command is irreversible.",
+    "example": "rm old_file.txt"
+  },
+  {
+    "id": 11,
+    "category": "Files & Directories",
+    "command": "rm -r <directory_name>",
+    "description": "Used to delete a folder and its contents recursively. **Warning:** This command is irreversible.",
+    "example": "rm -r old_folder"
+  },
+  {
+    "id": 12,
+    "category": "Networking",
+    "command": "ping <domain_name>",
+    "description": "Tests connectivity to a specific server by sending data packets.",
+    "example": "ping google.com"
+  },
+  {
+    "id": 13,
+    "category": "Networking",
+    "command": "curl <url>",
+    "description": "Used to download files or content from the internet.",
+    "example": "curl -O https://example.com/file.zip"
+  },
+  {
+    "id": 14,
+    "category": "Networking",
+    "command": "wget <url>",
+    "description": "Used to download files from the internet. Similar to the curl command.",
+    "example": "wget https://example.com/data.tar.gz"
+  },
+  {
+    "id": 15,
+    "category": "System",
+    "command": "clear",
+    "description": "Clears the terminal screen.",
+    "example": "clear"
+  },
+  {
+    "id": 16,
+    "category": "System",
+    "command": "exit",
+    "description": "Exits the current Termux session.",
+    "example": "exit"
+  },
+  {
+    "id": 17,
+    "category": "Utilities",
+    "command": "nano <file_name>",
+    "description": "Opens a simple text editor to edit a file.",
+    "example": "nano script.sh"
+  },
+  {
+    "id": 18,
+    "category": "Utilities",
+    "command": "git clone <repo_url>",
+    "description": "Used to download a repository from GitHub or another Git service.",
+    "example": "git clone https://github.com/username/project.git"
+  },
+  {
+    "id": 19,
+    "category": "Utilities",
+    "command": "chmod +x <file_name>",
+    "description": "Adds execute permissions to a file, allowing it to be run as a script.",
+    "example": "chmod +x my_script.sh"
+  },
+  {
+    "id": 20,
+    "category": "Utilities",
+    "command": "cp <source> <destination>",
+    "description": "Used to copy a file or folder from one location to another.",
+    "example": "cp file.txt ~/storage/"
+  },
+  {
+    "id": 21,
+    "category": "Utilities",
+    "command": "mv <source> <destination>",
+    "description": "Used to move or rename a file or folder.",
+    "example": "mv old_name.txt new_name.txt"
+  },
+  {
+    "id": 22,
+    "category": "Utilities",
+    "command": "termux-open <file_path>",
+    "description": "Opens a file using an external application on your device.",
+    "example": "termux-open image.jpg"
+  },
+  {
+    "id": 23,
+    "category": "Utilities",
+    "command": "whoami",
+    "description": "Displays the name of the current user you are logged in as.",
+    "example": "whoami"
+  }
+]
