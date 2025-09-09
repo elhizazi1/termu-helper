@@ -29,18 +29,20 @@ display_menu() {
     echo -e "└────────────────────────────────────┘\e[0m"
     echo ""
 
+    local current_category=""
     jq -r '.[] | .category + "!" + (.id | tostring) + ":" + .command' "$DATA_FILE" |
     while IFS="!" read -r category rest; do
         id_and_command=$(echo "$rest" | cut -d ':' -f 1-)
         id=$(echo "$id_and_command" | cut -d ':' -f 1)
         command=$(echo "$id_and_command" | cut -d ':' -f 2-)
-
+        
         if [[ "$category" != "$current_category" ]]; then
             echo ""
             echo -e "\e[1;35m$category\e[0m"
             current_category="$category"
         fi
-        echo -e "\t\e[1;32m$id\e[0m: $command"
+        
+        printf "  \e[1;32m%-2s\e[0m: %s\n" "$id" "$command"
     done
 
     echo ""
