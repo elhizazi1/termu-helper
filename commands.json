@@ -1,0 +1,163 @@
+[
+  {
+    "id": 1,
+    "category": "إدارة الحزم",
+    "command": "pkg install <package_name>",
+    "description": "يستخدم لتثبيت حزمة جديدة. استبدل <package_name> باسم الحزمة التي تريد تثبيتها.",
+    "example": "pkg install python"
+  },
+  {
+    "id": 2,
+    "category": "إدارة الحزم",
+    "command": "pkg update",
+    "description": "يحدّث قائمة الحزم المتوفرة من المستودعات.",
+    "example": "pkg update"
+  },
+  {
+    "id": 3,
+    "category": "إدارة الحزم",
+    "command": "pkg upgrade",
+    "description": "يرقّي جميع الحزم المثبتة إلى أحدث إصداراتها.",
+    "example": "pkg upgrade"
+  },
+  {
+    "id": 4,
+    "category": "إدارة الحزم",
+    "command": "pkg search <keyword>",
+    "description": "يبحث عن حزم تحتوي على كلمة مفتاحية معينة.",
+    "example": "pkg search c++"
+  },
+  {
+    "id": 5,
+    "category": "إدارة الحزم",
+    "command": "pkg show <package_name>",
+    "description": "يعرض معلومات مفصلة حول حزمة معينة.",
+    "example": "pkg show termux-tools"
+  },
+  {
+    "id": 6,
+    "category": "الملفات والمجلدات",
+    "command": "ls",
+    "description": "يعرض قائمة بجميع الملفات والمجلدات في المسار الحالي.",
+    "example": "ls -l"
+  },
+  {
+    "id": 7,
+    "category": "الملفات والمجلدات",
+    "command": "cd <directory>",
+    "description": "يستخدم للتنقل بين المجلدات. استبدل <directory> باسم المجلد الذي تريد الانتقال إليه.",
+    "example": "cd ~/storage"
+  },
+  {
+    "id": 8,
+    "category": "الملفات والمجلدات",
+    "command": "pwd",
+    "description": "يعرض المسار الكامل للمجلد الذي تتواجد فيه حاليًا.",
+    "example": "pwd"
+  },
+  {
+    "id": 9,
+    "category": "الملفات والمجلدات",
+    "command": "mkdir <directory_name>",
+    "description": "يستخدم لإنشاء مجلد جديد.",
+    "example": "mkdir my_project"
+  },
+  {
+    "id": 10,
+    "category": "الملفات والمجلدات",
+    "command": "rm <file_name>",
+    "description": "يستخدم لحذف ملف. **تنبيه:** هذا الأمر لا يمكن التراجع عنه.",
+    "example": "rm old_file.txt"
+  },
+  {
+    "id": 11,
+    "category": "الملفات والمجلدات",
+    "command": "rm -r <directory_name>",
+    "description": "يستخدم لحذف مجلد والمحتويات بداخله بشكل متكرر. **تنبيه:** هذا الأمر لا يمكن التراجع عنه.",
+    "example": "rm -r old_folder"
+  },
+  {
+    "id": 12,
+    "category": "الشبكات والإنترنت",
+    "command": "ping <domain_name>",
+    "description": "يختبر الاتصال بخادم معين عن طريق إرسال حزم البيانات.",
+    "example": "ping google.com"
+  },
+  {
+    "id": 13,
+    "category": "الشبكات والإنترنت",
+    "command": "curl <url>",
+    "description": "يستخدم لتنزيل ملفات أو محتوى من الإنترنت.",
+    "example": "curl -O https://example.com/file.zip"
+  },
+  {
+    "id": 14,
+    "category": "الشبكات والإنترنت",
+    "command": "wget <url>",
+    "description": "يستخدم لتنزيل ملفات من الإنترنت. مشابه لأمر curl.",
+    "example": "wget https://example.com/data.tar.gz"
+  },
+  {
+    "id": 15,
+    "category": "نظام التشغيل",
+    "command": "clear",
+    "description": "يمسح شاشة الطرفية وينظفها.",
+    "example": "clear"
+  },
+  {
+    "id": 16,
+    "category": "نظام التشغيل",
+    "command": "exit",
+    "description": "يغلق الجلسة الحالية من Termux.",
+    "example": "exit"
+  },
+  {
+    "id": 17,
+    "category": "أدوات مساعدة",
+    "command": "nano <file_name>",
+    "description": "يفتح محرر نصوص بسيط لتحرير ملف.",
+    "example": "nano script.sh"
+  },
+  {
+    "id": 18,
+    "category": "أدوات مساعدة",
+    "command": "git clone <repo_url>",
+    "description": "يستخدم لتنزيل مستودع (repository) من GitHub أو أي خدمة Git أخرى.",
+    "example": "git clone https://github.com/username/project.git"
+  },
+  {
+    "id": 19,
+    "category": "أدوات مساعدة",
+    "command": "chmod +x <file_name>",
+    "description": "يضيف صلاحية التنفيذ لملف معين، مما يسمح بتشغيله كسكربت.",
+    "example": "chmod +x my_script.sh"
+  },
+  {
+    "id": 20,
+    "category": "أدوات مساعدة",
+    "command": "cp <source> <destination>",
+    "description": "يستخدم لنسخ ملف أو مجلد من مكان إلى آخر.",
+    "example": "cp file.txt ~/storage/"
+  },
+  {
+    "id": 21,
+    "category": "أدوات مساعدة",
+    "command": "mv <source> <destination>",
+    "description": "يستخدم لنقل أو إعادة تسمية ملف أو مجلد.",
+    "example": "mv old_name.txt new_name.txt"
+  },
+  {
+    "id": 22,
+    "category": "أدوات مساعدة",
+    "command": "termux-open <file_path>",
+    "description": "يفتح ملفًا معينًا باستخدام تطبيق خارجي على جهازك.",
+    "example": "termux-open image.jpg"
+  },
+  {
+    "id": 23,
+    "category": "أدوات مساعدة",
+    "command": "whoami",
+    "description": "يعرض اسم المستخدم الحالي الذي قمت بتسجيل الدخول به.",
+    "example": "whoami"
+  }
+]

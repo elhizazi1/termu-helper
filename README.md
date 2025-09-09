@@ -1,2 +1,23 @@
-# termu-helper
+# Termux Helper - أداة مساعدة لأوامر تيرموكس
+
 أداة بسيطة لمستخدمي تيرموكس الجدد تساعدهم على معرفة الأوامر الشائعة ووظائفها.
+
+## المميزات
+
+- عرض قائمة بأكثر الأوامر استخداماً في تيرموكس.
+- شرح موجز لوظيفة كل أمر.
+- واجهة سطر أوامر بسيطة وجميلة.
+
+## التثبيت
+
+لتثبيت الأداة، اتبع الخطوات التالية في تطبيق تيرموكس:
+
+```bash
+# قم بتنزيل سكربت التثبيت
+curl -LO [https://raw.githubusercontent.com/YourUsername/termu-helper/main/installer.sh](https://raw.githubusercontent.com/YourUsername/termu-helper/main/installer.sh)
+
+# أعط صلاحيات التنفيذ للسكربت
+chmod +x installer.sh
+
+# قم بتشغيل سكربت التثبيت
+./installer.sh
