@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Define the repository URL and installation paths
-REPO_URL="https://github.com/YourUsername/termu-helper" # ⚠️ REMEMBER TO CHANGE THIS TO YOUR GITHUB USERNAME
+# OLD: REPO_URL="https://github.com/elhizazi1/termu-helper"
+REPO_URL="git@github.com:elhizazi1/termu-helper.git" # Changed to SSH protocol
 INSTALL_DIR="$HOME/.termu-helper"
 BIN_PATH="$PREFIX/bin/termu-helper"
 
@@ -39,4 +40,3 @@ chmod +x "$BIN_PATH"
 echo ""
 echo -e "\e[1;32m[+] Installation complete!\e[0m"
 echo -e "\e[1;32m[+] You can now run the tool by typing: \e[1;33mtermu-helper\e[0m"
-
