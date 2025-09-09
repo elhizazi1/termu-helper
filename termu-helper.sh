@@ -1,36 +1,34 @@
 #!/bin/bash
 
 # ===========================
-# Termux Helper - Stable V1
-# Developed by Jamal El Hizazi
+# Termux Helper - By Jamal El Hizazi
 # ===========================
 
 # Configuration
 INSTALL_DIR="$HOME/.termu-helper"
 DATA_FILE="$INSTALL_DIR/commands.json"
-INDENT="          "  # 10 spaces for indentation
 
-# Function to check if required tool 'jq' is installed
+# Check for required tool 'jq'
 check_jq() {
     if ! command -v jq &> /dev/null; then
-        echo -e "${INDENT}\e[1;31m* Error: 'jq' is not installed.\e[0m"
-        echo "${INDENT}Installing 'jq' now..."
+        echo -e "\e[1;31mError: 'jq' is not installed.\e[0m"
+        echo "Installing 'jq' now..."
         pkg install -y jq
         if [ $? -ne 0 ]; then
-            echo "${INDENT}Error: Failed to install 'jq'. Please install it manually with:"
-            echo "${INDENT}pkg install jq"
+            echo "Error: Failed to install 'jq'. Please install it manually with:"
+            echo "pkg install jq"
             exit 1
         fi
     fi
 }
 
-# Function to display the main menu
+# Display main menu
 display_menu() {
     clear
-    echo -e "${INDENT}\e[1;36m┌────────────────────────────────────┐"
-    echo -e "${INDENT}│ \e[1;33mTermux Helper - Commands List\e[1;36m │"
-    echo -e "${INDENT}│ ✓ Developed by Jamal El Hizazi     │"
-    echo -e "${INDENT}└────────────────────────────────────┘\e[0m"
+    term_width=$(tput cols)
+    printf "\e[1;36m┌%*s┐\e[0m\n" "$((term_width-2))" "" | tr " " "─"
+    printf "\e[1;36m│\e[1;33m%-*s\e[1;36m│\e[0m\n" "$((term_width-4))" "Termux Helper - By Jamal El Hizazi"
+    printf "\e[1;36m└%*s┘\e[0m\n" "$((term_width-2))" "" | tr " " "─"
     echo ""
 
     local current_category=""
@@ -42,19 +40,19 @@ display_menu() {
 
         if [[ "$category" != "$current_category" ]]; then
             echo ""
-            echo -e "${INDENT}• $category"
+            echo -e "  \e[1;35m★ $category\e[0m"
             current_category="$category"
         fi
 
-        printf "${INDENT}  \e[1;32m%-2s\e[0m: %s\n" "$id" "$command"
+        printf "    \e[1;32m✓ %-2s\e[0m: %s\n" "$id" "$command"
     done
 
     echo ""
-    echo -e "${INDENT}---------------------------------------"
-    echo -e "${INDENT}Enter a command number for details, or 'q' to quit."
+    echo -e "\e[1;33m---------------------------------------\e[0m"
+    echo -e "\e[1;33mEnter a command number for details, or 'q' to quit.\e[0m"
 }
 
-# Function to show command details
+# Show command details
 show_details() {
     local id=$1
     local command_info=$(jq --argjson id "$id" '.[] | select(.id == $id)' "$DATA_FILE")
@@ -65,19 +63,21 @@ show_details() {
         local cmd_example=$(echo "$command_info" | jq -r '.example')
 
         clear
-        echo -e "${INDENT}\e[1;36m┌────────────────────────────────────┐"
-        echo -e "${INDENT}│ \e[1;33mCommand Details\e[1;36m          │"
-        echo -e "${INDENT}└────────────────────────────────────┘\e[0m"
-        echo -e "${INDENT}✓ Command: $cmd_name"
-        echo -e "${INDENT}° Description: $cmd_desc"
-        echo -e "${INDENT}• Example: $cmd_example"
+        term_width=$(tput cols)
+        printf "\e[1;36m┌%*s┐\e[0m\n" "$((term_width-2))" "" | tr " " "─"
+        printf "\e[1;36m│\e[1;33m%-*s\e[1;36m│\e[0m\n" "$((term_width-4))" "Command Details - By Jamal El Hizazi"
+        printf "\e[1;36m└%*s┘\e[0m\n" "$((term_width-2))" "" | tr " " "─"
         echo ""
-        echo -e "${INDENT}---------------------------------------"
-        echo -e "${INDENT}To copy the command, select the text above."
-        echo -e "${INDENT}Press Enter to return to the main menu."
+        echo -e "  \e[1;32mCommand:\e[0m $cmd_name"
+        echo -e "  \e[1;32mDescription:\e[0m $cmd_desc"
+        echo -e "  \e[1;32mExample:\e[0m $cmd_example"
+        echo ""
+        echo -e "\e[1;33m---------------------------------------\e[0m"
+        echo -e "\e[1;33mTo copy the command, select the text above.\e[0m"
+        echo -e "\e[1;33mPress Enter to return to the main menu.\e[0m"
         read -p ""
     else
-        echo -e "${INDENT}\e[1;31m* Error: Invalid command number.\e[0m"
+        echo -e "\e[1;31mError: Invalid command number.\e[0m"
         sleep 2
     fi
 }
@@ -94,10 +94,10 @@ while true; do
     if [[ "$choice" =~ ^[0-9]+$ ]]; then
         show_details "$choice"
     elif [[ "$choice" == "q" || "$choice" == "Q" ]]; then
-        echo "${INDENT}Thanks for using Termux Helper!"
+        echo "Thanks for using Termux Helper - By Jamal El Hizazi!"
         exit 0
     else
-        echo -e "${INDENT}\e[1;31m* Invalid input. Please enter a number or 'q'.\e[0m"
+        echo -e "\e[1;31mInvalid input. Please enter a number or 'q'.\e[0m"
         sleep 2
     fi
 done
