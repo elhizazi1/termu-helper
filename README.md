@@ -14,7 +14,7 @@
 
 ```bash
 # قم بتنزيل سكربت التثبيت
-curl -LO [https://raw.githubusercontent.com/YourUsername/termu-helper/main/installer.sh](https://raw.githubusercontent.com/YourUsername/termu-helper/main/installer.sh)
+curl -LO [https://raw.githubusercontent.com/elhizazi1/termu-helper/main/installer.sh](https://raw.githubusercontent.com/elhizazi1/termu-helper/main/installer.sh)
 
 # أعط صلاحيات التنفيذ للسكربت
 chmod +x installer.sh
