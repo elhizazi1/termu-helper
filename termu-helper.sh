@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # ===========================
-# Termux Helper - Final English Version
+# Termux Helper - Final Version
 # ===========================
 
 # Configuration
 INSTALL_DIR="$HOME/.termu-helper"
 DATA_FILE="$INSTALL_DIR/commands.json"
+INDENT="    "  # 4 spaces for left padding
 
 # Function to check if required tool 'jq' is installed
 check_jq() {
@@ -25,18 +26,11 @@ check_jq() {
 # Function to display the main menu
 display_menu() {
     clear
-
-    # Get terminal width for full-width header
-    term_width=$(tput cols)
-    header=" Termux Helper - Commands List  (by Jamal) "
-    header_len=${#header}
-    pad_len=$(( (term_width - header_len) / 2 ))
-    padding=$(printf '%*s' "$pad_len")
-
-    echo -e "\e[1;36m┌$(printf '─%.0s' $(seq 1 $term_width))┐\e[0m"
-    echo -e "\e[1;36m│${padding}${header}${padding}│\e[0m"
-    echo -e "\e[1;36m└$(printf '─%.0s' $(seq 1 $term_width))┘\e[0m"
-    echo ""
+    cols=$(tput cols)
+    header=" Termux Helper - Commands List "
+    printf "\e[1;36m%s\n\e[0m" "$(printf '%*s' $cols '' | tr ' ' '-')"
+    printf "\e[1;33m%*s\e[0m\n" $(( (${#header} + cols) / 2 )) "$header"
+    printf "\e[1;36m%s\e[0m\n\n" "$(printf '%*s' $cols '' | tr ' ' '-')"
 
     local current_category=""
     jq -r '.[] | .category + "!" + (.id | tostring) + ":" + .command' "$DATA_FILE" |
@@ -47,11 +41,11 @@ display_menu() {
 
         if [[ "$category" != "$current_category" ]]; then
             echo ""
-            echo -e " • \e[1;35m$category\e[0m"
+            echo -e "\e[1;35m$INDENT$category\e[0m"
             current_category="$category"
         fi
 
-        printf "   ✓ \e[1;32m%-2s\e[0m: %s\n" "$id" "$command"
+        printf "$INDENT\e[1;32m%-2s\e[0m: %s\n" "$id" "$command"
     done
 
     echo ""
@@ -70,21 +64,17 @@ show_details() {
         local cmd_example=$(echo "$command_info" | jq -r '.example')
 
         clear
-
-        # Full-width header
-        term_width=$(tput cols)
+        cols=$(tput cols)
         header=" Command Details "
-        header_len=${#header}
-        pad_len=$(( (term_width - header_len) / 2 ))
-        padding=$(printf '%*s' "$pad_len")
+        printf "\e[1;36m%s\n\e[0m" "$(printf '%*s' $cols '' | tr ' ' '-')"
+        printf "\e[1;33m%*s\e[0m\n" $(( (${#header} + cols) / 2 )) "$header"
+        printf "\e[1;36m%s\e[0m\n\n" "$(printf '%*s' $cols '' | tr ' ' '-')"
 
-        echo -e "\e[1;36m┌$(printf '─%.0s' $(seq 1 $term_width))┐\e[0m"
-        echo -e "\e[1;36m│${padding}${header}${padding}│\e[0m"
-        echo -e "\e[1;36m└$(printf '─%.0s' $(seq 1 $term_width))┘\e[0m"
-
-        echo -e "\n • \e[1;32mCommand:\e[0m $cmd_name"
-        echo -e " • \e[1;32mDescription:\e[0m $cmd_desc"
-        echo -e " • \e[1;32mExample:\e[0m $cmd_example"
+        echo -e "${INDENT}\e[1;32mCommand:\e[0m $cmd_name"
+        echo -e "${INDENT}\e[1;32mDescription:\e[0m"
+        echo "$cmd_desc" | fold -s -w $(( $(tput cols) - ${#INDENT} )) | sed "s/^/$INDENT  • /"
+        echo -e "${INDENT}\e[1;32mExample:\e[0m"
+        echo "$cmd_example" | fold -s -w $(( $(tput cols) - ${#INDENT} )) | sed "s/^/$INDENT  ✓ /"
 
         echo ""
         echo -e "\e[1;33m---------------------------------------\e[0m"
@@ -109,7 +99,7 @@ while true; do
     if [[ "$choice" =~ ^[0-9]+$ ]]; then
         show_details "$choice"
     elif [[ "$choice" == "q" || "$choice" == "Q" ]]; then
-        echo "Thanks for using Termux Helper!"
+        echo "Thanks for using Termux Helper! by @elhizazi1"
         exit 0
     else
         echo -e "\e[1;31mInvalid input. Please enter a number or 'q'.\e[0m"
