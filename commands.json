@@ -1,163 +1,163 @@
 [
   {
     "id": 1,
-    "category": "إدارة الحزم",
+    "category": "Package Management",
     "command": "pkg install <package_name>",
-    "description": "يستخدم لتثبيت حزمة جديدة. استبدل <package_name> باسم الحزمة التي تريد تثبيتها.",
+    "description": "Used to install a new package. Replace <package_name> with the name of the package you want to install.",
     "example": "pkg install python"
   },
   {
     "id": 2,
-    "category": "إدارة الحزم",
+    "category": "Package Management",
     "command": "pkg update",
-    "description": "يحدّث قائمة الحزم المتوفرة من المستودعات.",
+    "description": "Updates the list of available packages from repositories.",
     "example": "pkg update"
   },
   {
     "id": 3,
-    "category": "إدارة الحزم",
+    "category": "Package Management",
     "command": "pkg upgrade",
-    "description": "يرقّي جميع الحزم المثبتة إلى أحدث إصداراتها.",
+    "description": "Upgrades all installed packages to their latest versions.",
     "example": "pkg upgrade"
   },
   {
     "id": 4,
-    "category": "إدارة الحزم",
+    "category": "Package Management",
     "command": "pkg search <keyword>",
-    "description": "يبحث عن حزم تحتوي على كلمة مفتاحية معينة.",
+    "description": "Searches for packages that contain a specific keyword.",
     "example": "pkg search c++"
   },
   {
     "id": 5,
-    "category": "إدارة الحزم",
+    "category": "Package Management",
     "command": "pkg show <package_name>",
-    "description": "يعرض معلومات مفصلة حول حزمة معينة.",
+    "description": "Shows detailed information about a specific package.",
     "example": "pkg show termux-tools"
   },
   {
     "id": 6,
-    "category": "الملفات والمجلدات",
+    "category": "Files & Directories",
     "command": "ls",
-    "description": "يعرض قائمة بجميع الملفات والمجلدات في المسار الحالي.",
+    "description": "Displays a list of all files and folders in the current path.",
     "example": "ls -l"
   },
   {
     "id": 7,
-    "category": "الملفات والمجلدات",
+    "category": "Files & Directories",
     "command": "cd <directory>",
-    "description": "يستخدم للتنقل بين المجلدات. استبدل <directory> باسم المجلد الذي تريد الانتقال إليه.",
+    "description": "Used to navigate between folders. Replace <directory> with the folder you want to enter.",
     "example": "cd ~/storage"
   },
   {
     "id": 8,
-    "category": "الملفات والمجلدات",
+    "category": "Files & Directories",
     "command": "pwd",
-    "description": "يعرض المسار الكامل للمجلد الذي تتواجد فيه حاليًا.",
+    "description": "Displays the full path of the folder you are currently in.",
     "example": "pwd"
   },
   {
     "id": 9,
-    "category": "الملفات والمجلدات",
+    "category": "Files & Directories",
     "command": "mkdir <directory_name>",
-    "description": "يستخدم لإنشاء مجلد جديد.",
+    "description": "Used to create a new folder.",
     "example": "mkdir my_project"
   },
   {
     "id": 10,
-    "category": "الملفات والمجلدات",
+    "category": "Files & Directories",
     "command": "rm <file_name>",
-    "description": "يستخدم لحذف ملف. **تنبيه:** هذا الأمر لا يمكن التراجع عنه.",
+    "description": "Used to delete a file. **Warning:** This command is irreversible.",
     "example": "rm old_file.txt"
   },
   {
     "id": 11,
-    "category": "الملفات والمجلدات",
+    "category": "Files & Directories",
     "command": "rm -r <directory_name>",
-    "description": "يستخدم لحذف مجلد والمحتويات بداخله بشكل متكرر. **تنبيه:** هذا الأمر لا يمكن التراجع عنه.",
+    "description": "Used to delete a folder and its contents recursively. **Warning:** This command is irreversible.",
     "example": "rm -r old_folder"
   },
   {
     "id": 12,
-    "category": "الشبكات والإنترنت",
+    "category": "Networking",
     "command": "ping <domain_name>",
-    "description": "يختبر الاتصال بخادم معين عن طريق إرسال حزم البيانات.",
+    "description": "Tests connectivity to a specific server by sending data packets.",
     "example": "ping google.com"
   },
   {
     "id": 13,
-    "category": "الشبكات والإنترنت",
+    "category": "Networking",
     "command": "curl <url>",
-    "description": "يستخدم لتنزيل ملفات أو محتوى من الإنترنت.",
+    "description": "Used to download files or content from the internet.",
     "example": "curl -O https://example.com/file.zip"
   },
   {
     "id": 14,
-    "category": "الشبكات والإنترنت",
+    "category": "Networking",
     "command": "wget <url>",
-    "description": "يستخدم لتنزيل ملفات من الإنترنت. مشابه لأمر curl.",
+    "description": "Used to download files from the internet. Similar to the curl command.",
     "example": "wget https://example.com/data.tar.gz"
   },
   {
     "id": 15,
-    "category": "نظام التشغيل",
+    "category": "System",
     "command": "clear",
-    "description": "يمسح شاشة الطرفية وينظفها.",
+    "description": "Clears the terminal screen.",
     "example": "clear"
   },
   {
     "id": 16,
-    "category": "نظام التشغيل",
+    "category": "System",
     "command": "exit",
-    "description": "يغلق الجلسة الحالية من Termux.",
+    "description": "Exits the current Termux session.",
     "example": "exit"
   },
   {
     "id": 17,
-    "category": "أدوات مساعدة",
+    "category": "Utilities",
     "command": "nano <file_name>",
-    "description": "يفتح محرر نصوص بسيط لتحرير ملف.",
+    "description": "Opens a simple text editor to edit a file.",
     "example": "nano script.sh"
   },
   {
     "id": 18,
-    "category": "أدوات مساعدة",
+    "category": "Utilities",
     "command": "git clone <repo_url>",
-    "description": "يستخدم لتنزيل مستودع (repository) من GitHub أو أي خدمة Git أخرى.",
+    "description": "Used to download a repository from GitHub or another Git service.",
     "example": "git clone https://github.com/username/project.git"
   },
   {
     "id": 19,
-    "category": "أدوات مساعدة",
+    "category": "Utilities",
     "command": "chmod +x <file_name>",
-    "description": "يضيف صلاحية التنفيذ لملف معين، مما يسمح بتشغيله كسكربت.",
+    "description": "Adds execute permissions to a file, allowing it to be run as a script.",
     "example": "chmod +x my_script.sh"
   },
   {
     "id": 20,
-    "category": "أدوات مساعدة",
+    "category": "Utilities",
     "command": "cp <source> <destination>",
-    "description": "يستخدم لنسخ ملف أو مجلد من مكان إلى آخر.",
+    "description": "Used to copy a file or folder from one location to another.",
     "example": "cp file.txt ~/storage/"
   },
   {
     "id": 21,
-    "category": "أدوات مساعدة",
+    "category": "Utilities",
     "command": "mv <source> <destination>",
-    "description": "يستخدم لنقل أو إعادة تسمية ملف أو مجلد.",
+    "description": "Used to move or rename a file or folder.",
     "example": "mv old_name.txt new_name.txt"
   },
   {
     "id": 22,
-    "category": "أدوات مساعدة",
+    "category": "Utilities",
     "command": "termux-open <file_path>",
-    "description": "يفتح ملفًا معينًا باستخدام تطبيق خارجي على جهازك.",
+    "description": "Opens a file using an external application on your device.",
     "example": "termux-open image.jpg"
   },
   {
     "id": 23,
-    "category": "أدوات مساعدة",
+    "category": "Utilities",
     "command": "whoami",
-    "description": "يعرض اسم المستخدم الحالي الذي قمت بتسجيل الدخول به.",
+    "description": "Displays the name of the current user you are logged in as.",
     "example": "whoami"
   }
 ]

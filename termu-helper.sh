@@ -8,13 +8,13 @@ INSTALL_DIR="$HOME/.termu-helper"
 check_jq() {
     if ! command -v jq &> /dev/null; then
         echo "======================================"
-        echo -e "\e[1;31mخطأ: أداة 'jq' غير مثبتة.\e[0m"
-        echo -e "أداة jq ضرورية لعمل هذه الأداة بشكل صحيح."
+        echo -e "\e[1;31mError: 'jq' is not installed.\e[0m"
+        echo "The 'jq' tool is required for this to work correctly."
         echo "======================================"
-        echo "جارٍ تثبيت 'jq' الآن..."
+        echo "Installing 'jq' now..."
         pkg install -y jq
         if [ $? -ne 0 ]; then
-            echo "خطأ: فشل تثبيت 'jq'. يرجى تثبيتها يدوياً باستخدام:"
+            echo "Error: Failed to install 'jq'. Please install it manually with:"
             echo "pkg install jq"
             exit 1
         fi
@@ -25,53 +25,55 @@ check_jq() {
 display_menu() {
     clear
     echo -e "\e[1;36m┌────────────────────────────────────┐"
-    echo -e "│ \e[1;33mTermux Helper - قائمة الأوامر\e[1;36m      │"
+    echo -e "│ \e[1;33mTermux Helper - Commands List\e[1;36m      │"
     echo -e "└────────────────────────────────────┘\e[0m"
     echo ""
-    
-    local current_category=""
-    jq -r '.[] | "\e[1;35m\(.category)\e[0m: \e[1;32m\(.id)\e[0m: \(.command)"' "$DATA_FILE" |
-    while IFS= read -r line; do
-        category=$(echo "$line" | cut -d ':' -f 1 | sed 's/\\e\[1;35m//g' | sed 's/\\e\[0m//g')
+
+    jq -r '.[] | .category + "!" + (.id | tostring) + ":" + .command' "$DATA_FILE" |
+    while IFS="!" read -r category rest; do
+        id_and_command=$(echo "$rest" | cut -d ':' -f 1-)
+        id=$(echo "$id_and_command" | cut -d ':' -f 1)
+        command=$(echo "$id_and_command" | cut -d ':' -f 2-)
+
         if [[ "$category" != "$current_category" ]]; then
             echo ""
             echo -e "\e[1;35m$category\e[0m"
             current_category="$category"
         fi
-        echo -e "\t$(echo "$line" | cut -d ':' -f 2-)"
+        echo -e "\t\e[1;32m$id\e[0m: $command"
     done
-    
+
     echo ""
     echo -e "\e[1;33m---------------------------------------\e[0m"
-    echo -e "\e[1;33mأدخل رقم الأمر لعرض التفاصيل، أو 'q' للخروج.\e[0m"
+    echo -e "\e[1;33mEnter a command number for details, or 'q' to quit.\e[0m"
 }
 
 # Function to show command details
 show_details() {
     local id=$1
     local command_info=$(jq --argjson id "$id" '.[] | select(.id == $id)' "$DATA_FILE")
-    
+
     if [ -n "$command_info" ]; then
         local cmd_name=$(echo "$command_info" | jq -r '.command')
         local cmd_desc=$(echo "$command_info" | jq -r '.description')
         local cmd_example=$(echo "$command_info" | jq -r '.example')
-        
+
         clear
         echo -e "\e[1;36m┌────────────────────────────────────┐"
-        echo -e "│ \e[1;33mتفاصيل الأمر\e[1;36m                 │"
+        echo -e "│ \e[1;33mCommand Details\e[1;36m              │"
         echo -e "└────────────────────────────────────┘\e[0m"
-        echo -e "\e[1;32mالأمر:\e[0m $cmd_name"
-        echo -e "\e[1;32mالوصف:\e[0m $cmd_desc"
-        echo -e "\e[1;32mمثال:\e[0m $cmd_example"
-        
+        echo -e "\e[1;32mCommand:\e[0m $cmd_name"
+        echo -e "\e[1;32mDescription:\e[0m $cmd_desc"
+        echo -e "\e[1;32mExample:\e[0m $cmd_example"
+
         echo ""
         echo -e "\e[1;33m---------------------------------------\e[0m"
-        echo -e "\e[1;33mلنسخ الأمر، قم بتحديد النص أعلاه.\e[0m"
-        echo -e "\e[1;33mاضغط Enter للعودة إلى القائمة الرئيسية.\e[0m"
+        echo -e "\e[1;33mTo copy the command, select the text above.\e[0m"
+        echo -e "\e[1;33mPress Enter to return to the main menu.\e[0m"
         read -p ""
-        
+
     else
-        echo -e "\e[1;31mخطأ: رقم الأمر غير صالح.\e[0m"
+        echo -e "\e[1;31mError: Invalid command number.\e[0m"
         sleep 2
     fi
 }
@@ -81,15 +83,14 @@ check_jq
 while true; do
     display_menu
     read -p "> " choice
-    
+
     if [[ "$choice" =~ ^[0-9]+$ ]]; then
         show_details "$choice"
     elif [ "$choice" == "q" ] || [ "$choice" == "Q" ]; then
-        echo "شكراً لاستخدامك Termux Helper!"
+        echo "Thanks for using Termux Helper!"
         exit 0
     else
-        echo -e "\e[1;31mمدخل غير صالح. يرجى إدخال رقم أو 'q'.\e[0m"
+        echo -e "\e[1;31mInvalid input. Please enter a number or 'q'.\e[0m"
         sleep 2
     fi
 done
-
